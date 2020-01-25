@@ -1,0 +1,64 @@
+plugins {
+    id 'java-library'
+    id 'application'
+    id 'c'
+    id 'cpp'
+    id 'edu.wpi.first.GradleJni' version '0.4.1'
+}
+
+group 'org.lognative'
+version '1.0'
+mainClassName = 'org.lognative.main.NoMain'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.0'
+    testCompile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.0'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+model {
+
+    platforms {
+        nativePlatform {}
+    }
+
+    components {
+        nativeImpl(JniNativeLibrarySpec) {
+            javaCompileTasks << compileJava
+            targetPlatform "nativePlatform"
+        }
+    }
+
+    tasks {
+
+        run {
+            def lib = $.binaries.nativeImplSharedLibrary
+            dependsOn lib
+            systemProperty 'java.library.path', lib.sharedLibraryFile.parent
+        }
+
+        test {
+            def lib = $.binaries.nativeImplSharedLibrary
+            dependsOn lib
+            systemProperty 'java.library.path', lib.sharedLibraryFile.parent
+        }
+
+        startScripts {
+            def lib = $.binaries.nativeImplSharedLibrary
+            dependsOn lib
+            distributions.main.contents.from(lib.sharedLibraryFile) {
+                into 'lib'
+            }
+
+            defaultJvmOpts = ['-Djava.library.path=@APP_HOME@/lib']
+            doLast {
+                unixScript.text = unixScript.text.replace('@APP_HOME@', '$APP_HOME')
+                windowsScript.text = windowsScript.text.replace('@APP_HOME@', '%~dp0..')
+            }
+        }
+    }
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="Warn" packages="org.lognative.log4j2">
+    <Appenders>
+        <NativeAppender name="Console">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </NativeAppender>
+        <Console name="ConsoleRegular">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="LoggerRegular" level="Info" additivity="False">
+            <AppenderRef ref="ConsoleRegular"/>
+        </Logger>
+        <Root level="Info" additivity="False">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
