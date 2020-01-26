@@ -12,7 +12,7 @@
 #define openImpl(fileName, fileFlags, modeFlags) _open(fileName, fileFlags, modeFlags)
 #define closeImpl(fileHandle) _close(fileHandle)
 #define flushImpl(fileHandle)
-#define openFlags _O_APPEND | _O_CREAT | _O_WRONLY | _O_ASYNC | _O_BINARY
+#define openFlags _O_APPEND | _O_CREAT | _O_WRONLY | _O_BINARY
 #define permFlags _S_IREAD | _S_IWRITE
 
 #else
