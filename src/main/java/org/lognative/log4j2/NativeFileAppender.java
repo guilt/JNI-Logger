@@ -7,30 +7,32 @@ import org.apache.logging.log4j.core.config.plugins.Plugin;
 import org.apache.logging.log4j.core.config.plugins.PluginAttribute;
 import org.apache.logging.log4j.core.config.plugins.PluginElement;
 import org.apache.logging.log4j.core.config.plugins.PluginFactory;
-import org.lognative.NativeLogger;
+import org.lognative.NativeFileLogger;
 
 import java.io.Serializable;
 
 @Plugin(
-        name="NativeAppender",
+        name="NativeFileAppender",
         category= Core.CATEGORY_NAME,
         elementType = Appender.ELEMENT_TYPE
 )
-public class NativeAppender extends AbstractAppender  {
+public class NativeFileAppender extends AbstractAppender  {
 
-    protected final static NativeLogger nativeLogger = new NativeLogger();
+    protected final NativeFileLogger nativeLogger;
 
-    protected NativeAppender(String name, Filter filter, Layout<? extends Serializable> layout, boolean ignoreExceptions, Property[] properties) {
+    protected NativeFileAppender(String fileName, String name, Filter filter, Layout<? extends Serializable> layout, boolean ignoreExceptions, Property[] properties) {
         super( name, filter, layout, ignoreExceptions, properties );
+        nativeLogger = new NativeFileLogger( fileName );
     }
 
     @PluginFactory
-    public static NativeAppender createAppender(
+    public static NativeFileAppender createAppender(
+            @PluginAttribute("fileName") String fileName,
             @PluginAttribute("name") String name,
             @PluginElement("Filter") Filter filter,
             @PluginElement("Layout") Layout layout
             ) {
-        return new NativeAppender(name, filter, layout, true, Property.EMPTY_ARRAY);
+        return new NativeFileAppender(fileName, name, filter, layout, true, Property.EMPTY_ARRAY);
     }
 
     @Override

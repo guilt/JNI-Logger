@@ -18,7 +18,7 @@ public class NativeLoggerTest {
 
     @Test
     public void testBasicLoggingBytes() {
-        new NativeLogger().logBytes("Basic Bytes Test\n".getBytes());
+        new NativeLogger().logBytes("Basic Bytes Test".getBytes());
     }
 
     @Test

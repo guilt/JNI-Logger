@@ -28,5 +28,4 @@ public class NativeFileLoggerTest {
         new NativeFileLogger(logFileName).log("Arguments: %s %d", "Test", 42);
     }
 
-
 }

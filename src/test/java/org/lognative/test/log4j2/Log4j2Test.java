@@ -4,18 +4,19 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 
-public class NativeAppenderTest {
+public class Log4j2Test {
     @Test
-    public void testLoggingWithLog4J2() {
-        final Logger logger = LogManager.getLogger();
+    public void testLoggingWithLog4J2Console() {
+        final Logger logger = LogManager.getLogger("LoggerConsole");
         logger.info( "Info Logging" );
         logger.error( "Error Logging" );
     }
 
     @Test
-    public void testLoggingWithLog4J2Regular() {
-        final Logger logger = LogManager.getLogger("LoggerRegular");
+    public void testLoggingWithLog4J2File() {
+        final Logger logger = LogManager.getLogger("LoggerFile");
         logger.info( "Info Logging" );
         logger.error( "Error Logging" );
     }
+
 }
