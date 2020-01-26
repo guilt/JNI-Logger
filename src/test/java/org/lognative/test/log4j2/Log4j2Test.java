@@ -12,11 +12,4 @@ public class Log4j2Test {
         logger.error( "Error Logging" );
     }
 
-    @Test
-    public void testLoggingWithLog4J2File() {
-        final Logger logger = LogManager.getLogger("LoggerFile");
-        logger.info( "Info Logging" );
-        logger.error( "Error Logging" );
-    }
-
 }

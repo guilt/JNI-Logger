@@ -1,5 +1,4 @@
 plugins {
-    id 'java-library'
     id 'application'
     id 'c'
     id 'cpp'
@@ -27,7 +26,7 @@ model {
     }
 
     components {
-        nativeImpl(JniNativeLibrarySpec) {
+        nativeimpl(JniNativeLibrarySpec) {
             javaCompileTasks << compileJava
             targetPlatform "nativePlatform"
         }
@@ -36,19 +35,19 @@ model {
     tasks {
 
         run {
-            def lib = $.binaries.nativeImplSharedLibrary
+            def lib = $.binaries.nativeimplSharedLibrary
             dependsOn lib
             systemProperty 'java.library.path', lib.sharedLibraryFile.parent
         }
 
         test {
-            def lib = $.binaries.nativeImplSharedLibrary
+            def lib = $.binaries.nativeimplSharedLibrary
             dependsOn lib
             systemProperty 'java.library.path', lib.sharedLibraryFile.parent
         }
 
         startScripts {
-            def lib = $.binaries.nativeImplSharedLibrary
+            def lib = $.binaries.nativeimplSharedLibrary
             dependsOn lib
             distributions.main.contents.from(lib.sharedLibraryFile) {
                 into 'lib'

@@ -38,7 +38,6 @@ public class NativeFileAppender extends AbstractAppender  {
     @Override
     public void append(LogEvent event) {
         nativeLogger.logBytes(getLayout().toByteArray( event ));
-        nativeLogger.flush();
     }
 
 }

@@ -22,18 +22,18 @@ JNIEXPORT void JNICALL Java_org_lognative_NativeFileLogger_logBytesToFile(JNIEnv
 
 JNIEXPORT void JNICALL Java_org_lognative_NativeFileLogger_flushFile(JNIEnv *jniEnvironment, jobject thisObject, jint fileHandle)
 {
-  //XXX: TODO
+  flushImpl(fileHandle);
 }
 
 JNIEXPORT void JNICALL Java_org_lognative_NativeFileLogger_closeFile(JNIEnv *jniEnvironment, jobject thisObject, jint fileHandle)
 {
-  close(fileHandle);
+  closeImpl(fileHandle);
 }
 
 JNIEXPORT jint JNICALL Java_org_lognative_NativeFileLogger_openFile(JNIEnv *jniEnvironment, jobject thisObject, jstring fileName)
 {
   const char *rawFileName = jniEnvironment->GetStringUTFChars(fileName, JNI_FALSE);
-  jint fileHandle = (jint) open(rawFileName, openFlags);
+  jint fileHandle = (jint) openImpl(rawFileName, openFlags, permFlags);
   return fileHandle;
 }
 

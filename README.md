@@ -3,7 +3,7 @@ JNI Loggers
 
 JNI Implementation of some popular logging frameworks.
 
-The idea is to be able to use a fast native appender, with minimal
+The idea is to be able to use a native appender, with minimal
 configuration. This allows us to look at how fast we can log data
 natively. 
 
