@@ -12,11 +12,11 @@ public class NativeFileLogger implements AutoCloseable {
         System.loadLibrary("nativeimpl");
     }
 
-    public NativeFileLogger(final String filePath) throws IOException {
+    public NativeFileLogger(final String filePath) {
         this.filePath = filePath;
         fileHandle = openFile(filePath);
         if(fileHandle < 0)
-            throw new IOException( String.format("Unable to Open File: %s", filePath) );
+            throw new IllegalArgumentException( String.format("Unable to Open File: %s", filePath) );
     }
 
     public NativeFileLogger(final File file) throws IOException {
@@ -47,7 +47,9 @@ public class NativeFileLogger implements AutoCloseable {
 
     protected native void flushFile(int fileHandle);
 
-    public native void flush();
+    public void flush() {
+        flushFile( fileHandle );
+    }
 
     protected native void closeFile(int fileHandle);
 
